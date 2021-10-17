@@ -1,0 +1,10 @@
+referrer_gatekeep.adminsettings:
+  path: '/admin/config/referrer_gatekeep'
+  defaults:
+    _form: '\Drupal\referrer_gatekeep\Form\ReferrerGatekeepForm'
+    _title: 'Referrer Gatekeep'
+  requirements:
+    _permission: 'administer referrer gatekeep'
+  options:
+    _admin_route: TRUE
+

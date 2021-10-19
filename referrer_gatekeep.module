@@ -23,10 +23,8 @@ function debug_to_console($data) {
 
   echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 }
-function redirect_ref() {
-    $referer = \Drupal::state()->get('ref');
- // $request = \Drupal::request();
- // $referer = $request->headers->get('referer');
-    debug_to_console($referer);
-}
-//redirect_ref();
+//function redirect_ref() {
+ //   $referer = \Drupal::state()->get('ref');
+ //   debug_to_console($referer);
+//}
+

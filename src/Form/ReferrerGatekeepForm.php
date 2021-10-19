@@ -4,23 +4,26 @@ namespace Drupal\referrer_gatekeep\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\State\State;
 
 
+class ReferrerGatekeepForm extends FormBase
+{
 
-
-class ReferrerGatekeepForm extends FormBase {
-
-  protected function getEditableConfigNames() {
+  protected function getEditableConfigNames()
+  {
     return [
       'referrer_gatekeep.adminsettings',
     ];
   }
 
-  public function getFormId() {
+  public function getFormId()
+  {
     return 'referrer_gatekeep_get_form';
   }
 
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state)
+  {
     $config = $this->config('referrer_gatekeep.adminsettings');
 
     $form['input'] = [
@@ -39,11 +42,13 @@ class ReferrerGatekeepForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    $file = 'referrer.txt';
+  public function submitForm(array &$form, FormStateInterface $form_state)
+  {
+//    $file = 'referrer.txt';
 //    $actual_link = "http://$_SERVER[HTTP_HOST]";
 //    file_put_contents($file, $actual_link);
-    file_put_contents($file, $form_state->getValue('input'));
+ //   file_put_contents($file, $form_state->getValue('input'));
+    \Drupal::state()->set('ref',$form_state->getValue('input'));
     $this->messenger()->addMessage("Saved.");
   }
 

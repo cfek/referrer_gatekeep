@@ -8,10 +8,12 @@ use Symfony\Component\HttpFoundation\Request;
 * A description of what your module does.
 */
 
+
 function referrer_gatekeep_page_attachments(array &$attachments) {
   //add here any conditions if you need to limit the pages
-
- $attachments['#attached']['library'][] = 'referrer_gatekeep/referrer_gatekeep_library';
+  $computed_settings = ["red_target" => \Drupal::state()->get('ref')];
+  $attachments['#attached']['library'][] = 'referrer_gatekeep/referrer_gatekeep_library';
+  $attachments['#attached']['drupalSettings']['referrer_gatekeep']['referrer_gatekeep'] = $computed_settings;
 }
 
 function debug_to_console($data) {
@@ -22,9 +24,9 @@ function debug_to_console($data) {
   echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 }
 function redirect_ref() {
-    $referer = $_SERVER["HTTP_REFERER"];
+    $referer = \Drupal::state()->get('ref');
  // $request = \Drupal::request();
  // $referer = $request->headers->get('referer');
     debug_to_console($referer);
 }
-redirect_ref();
+//redirect_ref();

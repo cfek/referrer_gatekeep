@@ -5,3 +5,4 @@ referrer_gatekeep_library:
     js/referrer_gatekeep.js: {}
   dependencies:
     - core/jquery
+    - core/drupalSettings

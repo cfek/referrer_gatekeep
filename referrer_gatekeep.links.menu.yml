@@ -1,0 +1,6 @@
+referrer_gatekeep.admin:
+  title: 'Referrer gatekeep settings'
+  description: 'Use to specify the website you want to redirect to.'
+  parent: system.admin_config_services
+  route_name: referrer_gatekeep.adminsettings
+  weight: 100

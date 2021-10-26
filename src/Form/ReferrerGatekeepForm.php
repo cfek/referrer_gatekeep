@@ -37,7 +37,7 @@ class ReferrerGatekeepForm extends FormBase
 
     $form['input'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Type in the link to a desired referer website:'),
+      '#title' => $this->t('Type in a full link to a desired referer website:'),
     ];
 
     $form['submit'] = [

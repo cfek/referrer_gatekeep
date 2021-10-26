@@ -26,9 +26,18 @@ class ReferrerGatekeepForm extends FormBase
   {
     $config = $this->config('referrer_gatekeep.adminsettings');
 
+    $form['from'] = array(
+
+        '#type' => 'item',
+
+        '#title' => t('The current stored link:'),
+
+        '#markup' => '<div>'.\Drupal::state()->get('ref').'</div>'
+    );
+
     $form['input'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Input'),
+      '#title' => $this->t('Type in the link to a desired referer website:'),
     ];
 
     $form['submit'] = [

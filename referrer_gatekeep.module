@@ -5,24 +5,29 @@ use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\Request;
 /**
 * @file
-* A description of what your module does.
+* Redirects.
 */
 
 
 function referrer_gatekeep_page_attachments(array &$attachments) {
   //add here any conditions if you need to limit the pages
-  $computed_settings = ["red_target" => \Drupal::state()->get('ref')];
+  $computed_settings = [
+    "red_target" => \Drupal::state()->get('ref'),
+    "red_target_message" => \Drupal::state()->get('ref_message')
+  
+  ];
   $attachments['#attached']['library'][] = 'referrer_gatekeep/referrer_gatekeep_library';
   $attachments['#attached']['drupalSettings']['referrer_gatekeep']['referrer_gatekeep'] = $computed_settings;
 }
 
-function debug_to_console($data) {
-  $output = $data;
-  if (is_array($output))
-    $output = implode(',', $output);
+// function debug_to_console($data) {
+//   $output = $data;
+//   if (is_array($output))
+//     $output = implode(',', $output);
 
-  echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
-}
+//   echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+// }
+
 //function redirect_ref() {
  //   $referer = \Drupal::state()->get('ref');
  //   debug_to_console($referer);

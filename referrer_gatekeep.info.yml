@@ -1,5 +1,5 @@
 name: Referrer Gatekeep
 type: module
-description: 'A description of what your module does.'
+description: 'Redirects if referrer does not match a pattern'
 core_version_requirement: ^8 || ^9
 

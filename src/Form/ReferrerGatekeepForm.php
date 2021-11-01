@@ -13,7 +13,7 @@ class ReferrerGatekeepForm extends FormBase
   protected function getEditableConfigNames()
   {
     return [
-      'referrer_gatekeep.adminsettings',
+      'referrer_gatekeep.development',
     ];
   }
 
@@ -24,20 +24,24 @@ class ReferrerGatekeepForm extends FormBase
 
   public function buildForm(array $form, FormStateInterface $form_state)
   {
-    $config = $this->config('referrer_gatekeep.adminsettings');
+    $config = $this->config('referrer_gatekeep.development');
 
     $form['from'] = array(
-
-        '#type' => 'item',
-
-        '#title' => t('The current stored link:'),
-
-        '#markup' => '<div>'.\Drupal::state()->get('ref').'</div>'
+      '#type' => 'item',
+      '#title' => t('The current stored link:'),
+      '#markup' => '<div>' . \Drupal::state()->get('ref') . '</div>'
     );
 
     $form['input'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Type in a full link to a desired referer website:'),
+      '#description' => $this->t('Full link to a desired referer website'),
+      '#default_value' => \Drupal::state()->get('ref'),
+    ];
+
+    $form['input1'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Redirect message'),
+      '#default_value' => \Drupal::state()->get('ref_message'),
     ];
 
     $form['submit'] = [
@@ -53,12 +57,8 @@ class ReferrerGatekeepForm extends FormBase
    */
   public function submitForm(array &$form, FormStateInterface $form_state)
   {
-//    $file = 'referrer.txt';
-//    $actual_link = "http://$_SERVER[HTTP_HOST]";
-//    file_put_contents($file, $actual_link);
- //   file_put_contents($file, $form_state->getValue('input'));
-    \Drupal::state()->set('ref',$form_state->getValue('input'));
+    \Drupal::state()->set('ref', $form_state->getValue('input'));
+    \Drupal::state()->set('ref_message', $form_state->getValue('input1'));
     $this->messenger()->addMessage("Saved.");
   }
-
 }

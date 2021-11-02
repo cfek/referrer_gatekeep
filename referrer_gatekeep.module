@@ -23,7 +23,7 @@ function redirect_ref() {
     $ref_message = \Drupal::state()->get('ref_message');
     $our_url= "{$_SERVER['HTTP_HOST']}";
     $orig = $_SERVER['HTTP_REFERER'];
-    if ( !str_contains($orig, $our_url)  && $orig!=$referer ){
+    if ( !str_contains($orig, $our_url)  && $orig!=$referer && strlen($orig)==0){
       echo "<script type='text/javascript'>alert('$ref_message');</script>";
       #header("Location: $referer");
       die();
@@ -34,4 +34,4 @@ function redirect_ref() {
 
 redirect_ref();
 
- 
+

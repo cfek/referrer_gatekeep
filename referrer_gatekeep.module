@@ -9,27 +9,29 @@ use Symfony\Component\HttpFoundation\Request;
 */
 
 
-function referrer_gatekeep_page_attachments(array &$attachments) {
-  //add here any conditions if you need to limit the pages
-  $computed_settings = [
-    "red_target" => \Drupal::state()->get('ref'),
-    "red_target_message" => \Drupal::state()->get('ref_message')
-  
-  ];
-  $attachments['#attached']['library'][] = 'referrer_gatekeep/referrer_gatekeep_library';
-  $attachments['#attached']['drupalSettings']['referrer_gatekeep']['referrer_gatekeep'] = $computed_settings;
+
+ function debug_to_console($data) {
+   $output = $data;
+   if (is_array($output))
+     $output = implode(',', $output);
+
+   echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+ }
+
+function redirect_ref() {
+    $referer = \Drupal::state()->get('ref');
+    $ref_message = \Drupal::state()->get('ref_message');
+    $our_url= "{$_SERVER['HTTP_HOST']}";
+    $orig = $_SERVER['HTTP_REFERER'];
+    debug_to_console($referer);
+    debug_to_console($orig);
+    if ( !str_contains($orig, $our_url)  && $orig!=$referer ){
+      echo "<script type='text/javascript'>alert('$ref_message');</script>";
+      #header("Location: $referer");
+      die();
+    }
+
+
 }
 
-// function debug_to_console($data) {
-//   $output = $data;
-//   if (is_array($output))
-//     $output = implode(',', $output);
-
-//   echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
-// }
-
-//function redirect_ref() {
- //   $referer = \Drupal::state()->get('ref');
- //   debug_to_console($referer);
-//}
-
+redirect_ref();

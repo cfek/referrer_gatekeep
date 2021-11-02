@@ -1,8 +1,0 @@
-referrer_gatekeep_library:
-  version: 1.x
-  header: true
-  js:
-    js/referrer_gatekeep.js: {}
-  dependencies:
-    - core/jquery
-    - core/drupalSettings

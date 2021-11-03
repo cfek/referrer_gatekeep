@@ -34,7 +34,7 @@ class ReferrerGatekeepForm extends FormBase
 
     $form['input'] = [
       '#type' => 'textfield',
-      '#description' => $this->t('Link to a desired referer website. Do not include https or trailing slash'),
+      '#description' => $this->t('Link to a desired referer website.'),
       '#default_value' => \Drupal::state()->get('ref'),
     ];
 

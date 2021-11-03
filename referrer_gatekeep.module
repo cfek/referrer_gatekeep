@@ -12,14 +12,20 @@ use Symfony\Component\HttpFoundation\Request;
 
 function redirect_ref() {
     $referer = \Drupal::state()->get('ref');
-    $referer = "https://$referer/";
+    if (!str_contains($referer, "https")) {
+      $referer="https://$referer";
+    }
+    if ($referer[-1]!="/") {
+      $referer.="/";
+    }
+
     $ref_message = \Drupal::state()->get('ref_message');
     $our_url= "{$_SERVER['HTTP_HOST']}";
     $orig = $_SERVER['HTTP_REFERER'];
     $user_check = "$_SERVER[REQUEST_URI]";
+    $pageRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) &&($_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0' ||  $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache');
 
-
-    if ( !str_contains($orig, $our_url)  && $orig!=$referer  && $user_check!="/drupal/web/user/login")  {
+    if ( !str_contains($orig, $our_url)  && $orig!=$referer  && $user_check!="/user/login" && !$pageRefreshed)  {
       echo "<script type='text/javascript'>alert('$ref_message');</script>";
       die();
 

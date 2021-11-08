@@ -1,0 +1,4 @@
+services:
+  Drupal\referrer_gatekeep\EventSubscriber\ReferrerCheck:
+    tags:
+      - { name: 'event_subscriber' }

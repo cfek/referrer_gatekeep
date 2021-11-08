@@ -22,6 +22,10 @@ class ReferrerGatekeepForm extends FormBase
     return 'referrer_gatekeep_get_form';
   }
 
+
+
+
+
   public function buildForm(array $form, FormStateInterface $form_state)
   {
     $config = $this->config('referrer_gatekeep.development');
@@ -38,11 +42,19 @@ class ReferrerGatekeepForm extends FormBase
       '#default_value' => \Drupal::state()->get('ref'),
     ];
 
+    $form['input2'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Absolute link to a desired redirect target.'),
+      '#default_value' => \Drupal::state()->get('red_target'),
+    ];
+
     $form['input1'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Redirect message'),
       '#default_value' => \Drupal::state()->get('ref_message'),
     ];
+
+
 
     $form['submit'] = [
       '#type' => 'submit',
@@ -59,6 +71,7 @@ class ReferrerGatekeepForm extends FormBase
   {
     \Drupal::state()->set('ref', $form_state->getValue('input'));
     \Drupal::state()->set('ref_message', $form_state->getValue('input1'));
+    \Drupal::state()->set('red_target', $form_state->getValue('input2'));
     $this->messenger()->addMessage("Saved.");
   }
 }

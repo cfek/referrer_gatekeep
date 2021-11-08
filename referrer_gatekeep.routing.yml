@@ -13,3 +13,4 @@ referrer_gatekeep.add_form:
     _title: 'Referrer Gatekeep'
   requirements:
     _permission: 'administer referrer gatekeep'
+

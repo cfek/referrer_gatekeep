@@ -3,40 +3,33 @@
 
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\user\UserInterface;
+
+
 /**
 * @file
 * Redirects.
 */
+#session_start();
+#module_set_weight('referrer_gatekeep', 100000);
+
+
+\Drupal::service('page_cache_kill_switch')->trigger();
 
 
 
+function debug_to_console($data) {
+  $output = $data;
+  if (is_array($output))
+    $output = implode(',', $output);
 
-function redirect_ref() {
-    $referer = \Drupal::state()->get('ref');
-    if (!str_contains($referer, "https")) {
-      $referer="https://$referer";
-    }
-    if ($referer[-1]!="/") {
-      $referer.="/";
-    }
-
-    $ref_message = \Drupal::state()->get('ref_message');
-    $our_url= "{$_SERVER['HTTP_HOST']}";
-    $orig = $_SERVER['HTTP_REFERER'];
-    $user_check = "$_SERVER[REQUEST_URI]";
-
-    if ( !str_contains($orig, $our_url)  && $orig!=$referer  && $user_check!="/user/login")  {
-      echo "<script type='text/javascript'>alert('$ref_message');</script>";
-      die();
-
-    }
-
-
-
-
+  echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 
 }
 
-redirect_ref();
 
+#::getSubscribedEvents();
+
+#$events['kernel.request'][] = ['onRequest', 0];
 
